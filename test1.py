@@ -13,26 +13,36 @@ def Euler(x,h):
         y[i+1] = y[i] + func(x[i],y[i]) * h
     return y
 
+def Heun(x,h):
+    n = len(x)
+    y0 = np.zeros(n)
+    y = np.zeros(n)
+    y[0] = 4
+    for i in range(0, n - 1):
+        y0[i+1] = y[i] + func(x[i],y[i]) * h
+        y[i+1] = y[i] + 0.5 * (func(x[i],y[i]) + func(x[i+1],y0[i+1])) * h
+    return y
+
 step = 0.01
 x1 = np.arange(0,10+step,step=step)
 x1 = np.around(x1,decimals=2)
 
-y1 = Euler(x1,step)
+y1 = Heun(x1,step)
 
 step = 0.05
 x2 = np.arange(0,10+step,step=step)
 x2 = np.around(x2,decimals=2)
-y2 = Euler(x2,step)
+y2 = Heun(x2,step)
 
 step = 0.1
 x3 = np.arange(0,10+step,step=step)
 x3 = np.around(x3,decimals=2)
-y3 = Euler(x3,step)
+y3 = Heun(x3,step)
 
 step = 0.5
 x4 = np.arange(0,10+step,step=step)
 x4 = np.around(x4,decimals=2)
-y4 = Euler(x4,step)
+y4 = Heun(x4,step)
 
 
 plt.plot(x1,y1,linestyle='-',marker='.',color='red',label='Step Size 0.01')
